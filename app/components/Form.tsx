@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-// Abramowitz and Stegun의 근사식
+// 에러 함수 구현 (Abramowitz and Stegun의 근사식을 사용)
 function erf(x: number): number {
   const a1 = 0.254829592;
   const a2 = -0.284496736;
@@ -696,6 +696,11 @@ export default function Form() {
             ))}
           </div>
 
+          {/* 추가 안내 문구 */}
+          <p style={additionalNoticeStyle}>
+            이전 학기 성적 부여 비율은 HY-in / 수업 / 교과목 포트폴리오 / 리포트 출력에서 확인하실 수 있습니다.
+          </p>
+
           {error && <p style={errorStyle}>{error}</p>}
           <button type="submit" style={buttonStyle}>
             성적 예측하기
@@ -766,7 +771,7 @@ export default function Form() {
                   </>
                 )}
               </div>
-              {/* 안내 문구, 깃헙 링크 추가 */}
+              {/* 안내 문구 및 GitHub 링크 추가 */}
               <p style={noticeStyle}>
                 과제 및 출석 등을 제외한 단순 시험 점수로만 계산한 성적으로, 부정확할 수 있습니다.{" "}
                 <a
@@ -967,6 +972,11 @@ export default function Form() {
             ))}
           </div>
 
+          {/* 추가 안내 문구 */}
+          <p style={additionalNoticeStyle}>
+            이전 학기 성적 부여 비율은 HY-in / 수업 / 교과목 포트폴리오 / 리포트 출력에서 확인하실 수 있습니다.
+          </p>
+
           {/* Drag-able Final Score Selector */}
           <div style={finalCalculatorContainerStyle}>
             <h3 style={sectionTitleStyle}>기말고사 점수 선택</h3>
@@ -1065,7 +1075,7 @@ export default function Form() {
                   </>
                 )}
               </div>
-              {/* 안내 문구, 깃헙 링크 */}
+              {/* 안내 문구 및 GitHub 링크 추가 */}
               <p style={noticeStyle}>
                 과제 및 출석 등을 제외한 단순 시험 점수로만 계산한 성적으로, 부정확할 수 있습니다.{" "}
                 <a
@@ -1263,6 +1273,7 @@ const barTextStyle: React.CSSProperties = {
   width: "100%",
 };
 
+// 기말 성적 계산 스타일
 const finalCalculatorContainerStyle: React.CSSProperties = {
   marginTop: "20px",
   textAlign: "center",
@@ -1295,6 +1306,16 @@ const scoreDisplayStyle: React.CSSProperties = {
   color: "#333",
 };
 
+// 추가 안내 문구 스타일 추가
+const additionalNoticeStyle: React.CSSProperties = {
+  fontSize: "12px",
+  color: "#555",
+  fontStyle: "italic",
+  textAlign: "center",
+  marginTop: "10px",
+};
+
+// 안내 문구 스타일 수정
 const noticeStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
