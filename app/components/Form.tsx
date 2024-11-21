@@ -531,7 +531,7 @@ export default function Form() {
             ...(activeTab === "finalCalculator" ? activeTabStyle : {}),
           }}
         >
-          기말 성적 계산
+          기말 성적 예측
         </button>
       </div>
 
@@ -882,7 +882,7 @@ export default function Form() {
           {/* Input for Final Average */}
           <div style={rowStyle}>
             <label style={labelStyle}>
-              기말고사 평균:
+              기말고사 예상 평균:
               <input
                 type="number"
                 value={finalCalculator.finalAvg}
@@ -899,7 +899,7 @@ export default function Form() {
               />
             </label>
             <label style={labelStyle}>
-              기말고사 표준편차:
+              기말고사 예상 표준편차:
               <input
                 type="number"
                 value={finalCalculator.finalStdDev}
