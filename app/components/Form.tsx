@@ -661,7 +661,7 @@ export default function Form() {
           </div>
 
           {/* Grade Ratio Inputs */}
-          <h3 style={sectionTitleStyle}>성적 비율 입력 (합계: 100%)</h3>
+          <h3 style={sectionTitleStyle}>성적 비율 입력</h3>
           <div style={gradeRowStyle}>
             {[
               "APlus",
@@ -695,6 +695,12 @@ export default function Form() {
               </div>
             ))}
           </div>
+
+          {/* 합계 표시 */}
+          <SumDisplay
+            gradeRatios={gradeRatiosPredictor}
+            validRange={{ min: 99, max: 101 }}
+          />
 
           {/* 추가 안내 문구 */}
           <p style={additionalNoticeStyle}>
@@ -937,7 +943,7 @@ export default function Form() {
           </div>
 
           {/* Grade Ratio Inputs */}
-          <h3 style={sectionTitleStyle}>성적 비율 입력 (합계: 100%)</h3>
+          <h3 style={sectionTitleStyle}>성적 비율 입력</h3>
           <div style={gradeRowStyle}>
             {[
               "APlus",
@@ -972,6 +978,12 @@ export default function Form() {
             ))}
           </div>
 
+          {/* 합계 표시 */}
+          <SumDisplay
+            gradeRatios={gradeRatiosFinalCalculator}
+            validRange={{ min: 99, max: 101 }}
+          />
+
           {/* 추가 안내 문구 */}
           <p style={additionalNoticeStyle}>
             이전 학기 성적 부여 비율은 HY-in / 수업 / 교과목 포트폴리오 / 리포트 출력에서 확인하실 수 있습니다.
@@ -999,7 +1011,7 @@ export default function Form() {
             <p style={scoreDisplayStyle}>
               선택한 기말고사 점수:{" "}
               {finalCalculator.myFinalScore.toFixed(2)} /{" "}
-              {finalCalculator.finalMax}
+              {finalCalculator.finalMax ? parseFloat(finalCalculator.finalMax).toFixed(2) : "0"}
             </p>
           </div>
 
@@ -1300,12 +1312,6 @@ const dragHandleStyle: React.CSSProperties = {
   cursor: "grab",
 };
 
-const scoreDisplayStyle: React.CSSProperties = {
-  marginTop: "10px",
-  fontSize: "16px",
-  color: "#333",
-};
-
 // 추가 안내 문구 스타일 추가
 const additionalNoticeStyle: React.CSSProperties = {
   fontSize: "12px",
@@ -1360,3 +1366,34 @@ const gradeColors: string[] = [
   "#795548", // D+
   "#607D8B", // D0
 ];
+
+// ---------------------- SumDisplay 컴포넌트 추가 ----------------------
+interface SumDisplayProps {
+  gradeRatios: GradeRatios;
+  validRange: { min: number; max: number };
+}
+
+const SumDisplay: React.FC<SumDisplayProps> = ({ gradeRatios, validRange }) => {
+  const sum = Object.values(gradeRatios).reduce(
+    (acc, val) => acc + (parseFloat(val) || 0),
+    0
+  );
+
+  const isValid = sum >= validRange.min && sum <= validRange.max;
+
+  const sumStyle: React.CSSProperties = {
+    color: isValid ? "green" : "red",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: "14px",
+  };
+
+  return <p style={sumStyle}>합계: {sum.toFixed(2)}%</p>;
+};
+
+// ---------------------- scoreDisplayStyle 추가 ----------------------
+const scoreDisplayStyle: React.CSSProperties = {
+  marginTop: "10px",
+  fontSize: "16px",
+  color: "#333",
+};
